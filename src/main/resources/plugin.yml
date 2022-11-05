@@ -1,0 +1,5 @@
+name: EconomyAPI
+version: '${project.version}'
+main: me.vineer.economyapi.EconomyAPI
+api-version: 1.16
+authors: [ Vineer ]
