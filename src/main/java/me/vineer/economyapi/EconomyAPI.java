@@ -1,5 +1,6 @@
 package me.vineer.economyapi;
 
+import me.vineer.economyapi.config.Config;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class EconomyAPI extends JavaPlugin {
@@ -7,6 +8,13 @@ public final class EconomyAPI extends JavaPlugin {
     @Override
     public void onEnable() {
         EconomyAPI.setPlugin(this);
+
+        getConfig().options().copyDefaults(true);
+        saveConfig();
+
+        Config config = new Config("TestConfig");
+        config.getCustomFile().addDefault("Taco", "Rice");
+        config.saveCustomFile();
     }
     @Override
     public void onDisable() {
