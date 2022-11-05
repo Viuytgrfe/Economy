@@ -10,7 +10,7 @@ public final class EconomyAPI extends JavaPlugin {
     }
     @Override
     public void onDisable() {
-
+        System.out.println("Disabling EconomyAPI!");
     }
 
     public static JavaPlugin getPlugin() {
