@@ -1,20 +1,22 @@
 package me.vineer.economyapi;
 
 import me.vineer.economyapi.config.Config;
+import me.vineer.economyapi.events.PlayerEvents;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class EconomyAPI extends JavaPlugin {
     private static JavaPlugin plugin;
+    private static Config BalanceConfig;
     @Override
     public void onEnable() {
         EconomyAPI.setPlugin(this);
+        registerEvents();
 
         getConfig().options().copyDefaults(true);
         saveConfig();
 
-        Config config = new Config("TestConfig");
-        config.getCustomFile().addDefault("Taco", "Rice");
-        config.saveCustomFile();
+        BalanceConfig = new Config("Balance");
     }
     @Override
     public void onDisable() {
@@ -24,7 +26,16 @@ public final class EconomyAPI extends JavaPlugin {
     public static JavaPlugin getPlugin() {
         return plugin;
     }
-    public static void setPlugin(final JavaPlugin plugin) {
+
+    private static void setPlugin(final JavaPlugin plugin) {
         EconomyAPI.plugin = plugin;
+    }
+
+    private void registerEvents() {
+        getServer().getPluginManager().registerEvents(new PlayerEvents(), this);
+    }
+
+    public static Config getBalanceConfig() {
+        return BalanceConfig;
     }
 }

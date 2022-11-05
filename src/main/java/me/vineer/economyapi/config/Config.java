@@ -8,12 +8,11 @@ import java.io.File;
 import java.io.IOException;
 
 public class Config {
-    private File file;
+    private final File file;
     private FileConfiguration customFile;
 
     public Config(String name) {
         file = new File(Bukkit.getServer().getPluginManager().getPlugin("EconomyAPI").getDataFolder(), name + ".yml");
-
         if(!file.exists()) {
             try {
                 file.createNewFile();
@@ -49,5 +48,9 @@ public class Config {
 
     public Object get(String path) {
         return getCustomFile().get(path);
+    }
+
+    public void deleteConfig() {
+        file.delete();
     }
 }
