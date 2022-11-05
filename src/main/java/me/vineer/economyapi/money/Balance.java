@@ -28,4 +28,8 @@ public class Balance {
         }
         return new Balance(money);
     }
+
+    public static void setPlayerBalance(Player player, int value) {
+        EconomyAPI.getBalanceConfig().set("Player." + player.getName() + ".balance", String.valueOf(value));
+    }
 }
