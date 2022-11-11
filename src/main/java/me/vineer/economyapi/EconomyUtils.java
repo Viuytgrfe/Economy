@@ -1,4 +1,4 @@
 package me.vineer.economyapi;
-public class Utils {
+public class EconomyUtils {
 
 }

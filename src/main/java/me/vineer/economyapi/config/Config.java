@@ -41,7 +41,7 @@ public class Config {
         customFile = YamlConfiguration.loadConfiguration(file);
     }
 
-    public void set(String path, String value) {
+    public void set(String path, Object value) {
         getCustomFile().set(path, value);
         saveCustomFile();
     }

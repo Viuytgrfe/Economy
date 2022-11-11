@@ -2,7 +2,9 @@ package me.vineer.economyapi;
 
 import me.vineer.economyapi.config.Config;
 import me.vineer.economyapi.events.PlayerEvents;
+import me.vineer.economyapi.money.Balance;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class EconomyAPI extends JavaPlugin {
