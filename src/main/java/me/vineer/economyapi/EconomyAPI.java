@@ -1,28 +1,27 @@
 package me.vineer.economyapi;
 
-import me.vineer.economyapi.config.Config;
-import me.vineer.economyapi.events.PlayerEvents;
-import me.vineer.economyapi.money.Balance;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
+import me.vineer.economyapi.commands.MoneyCommand;
+import me.vineer.economyapi.database.Database;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class EconomyAPI extends JavaPlugin {
     private static JavaPlugin plugin;
-    private static Config BalanceConfig;
+    public static EconomyAPI instance;
     @Override
     public void onEnable() {
+        instance = this;
+        Database.initDatabase();
         EconomyAPI.setPlugin(this);
         registerEvents();
-
-        getConfig().options().copyDefaults(true);
-        saveConfig();
-
-        BalanceConfig = new Config("Balance");
     }
+
+    public static EconomyAPI getInstance() {
+        return instance;
+    }
+
     @Override
     public void onDisable() {
-        System.out.println("Disabling EconomyAPI!");
+        instance = null;
     }
 
     public static JavaPlugin getPlugin() {
@@ -34,10 +33,7 @@ public final class EconomyAPI extends JavaPlugin {
     }
 
     private void registerEvents() {
-        getServer().getPluginManager().registerEvents(new PlayerEvents(), this);
-    }
-
-    public static Config getBalanceConfig() {
-        return BalanceConfig;
+        new EconomyExpansion().register();
+        this.getCommand("money").setExecutor(new MoneyCommand());
     }
 }

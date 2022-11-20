@@ -3,3 +3,9 @@ version: '${project.version}'
 main: me.vineer.economyapi.EconomyAPI
 api-version: 1.16
 authors: [ Vineer ]
+depend:
+  - PlaceholderAPI
+commands:
+  money:
+    description: your money
+    usage: /<command>
