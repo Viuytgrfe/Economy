@@ -2,6 +2,7 @@ package me.vineer.economyapi;
 
 import me.vineer.economyapi.commands.MoneyCommand;
 import me.vineer.economyapi.database.Database;
+import me.vineer.economyapi.tabCompleters.MoneyTabCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class EconomyAPI extends JavaPlugin {
@@ -35,5 +36,6 @@ public final class EconomyAPI extends JavaPlugin {
     private void registerEvents() {
         new EconomyExpansion().register();
         this.getCommand("money").setExecutor(new MoneyCommand());
+        this.getCommand("money").setTabCompleter(new MoneyTabCompleter());
     }
 }

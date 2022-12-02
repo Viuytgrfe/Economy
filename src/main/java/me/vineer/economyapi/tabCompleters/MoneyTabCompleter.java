@@ -42,7 +42,6 @@ public class MoneyTabCompleter implements TabCompleter {
             complete.add("100");
             complete.add("200");
             complete.add("500");
-            complete.add("1000");
             return complete;
         } else if (args.length == 4 && args[0].equals("set")) {
             Player[] players = new Player[Bukkit.getServer().getOnlinePlayers().size()];
