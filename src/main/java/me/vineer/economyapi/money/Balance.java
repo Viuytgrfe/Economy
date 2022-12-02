@@ -17,27 +17,6 @@ public class Balance {
         this.donateMoney = donateMoney;
         this.member = member;
     }
-
-    public static Balance getPlayerBalance(String player) {
-        boolean has_account = false;
-        try {
-            PreparedStatement pr = Database.getConnection().prepareStatement("SELECT * FROM Players WHERE Name = ?");
-            pr.setString(1, player);
-            ResultSet rs = pr.executeQuery();
-            has_account = rs.next();
-            if(has_account) {
-                return new Balance(rs.getInt("money"), rs.getInt("donateMoney"), player);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if(!has_account) {
-            setPlayerBalance(300, 0, player);
-            return new Balance(300, 0, player);
-        }
-        return new Balance(300, 0, player);
-    }
-
     public void setMoney(int money) {
         this.money = money;
         setPlayerBalance(this.money, donateMoney, member);
@@ -58,6 +37,15 @@ public class Balance {
 
     public String getMember() {
         return member;
+    }
+
+
+    public boolean sendMoneyTo(String toSendPlayer, int amount) {
+        Balance toBalance = Balance.getPlayerBalance(toSendPlayer);
+        if(getMoney() - amount < 0)return false;
+        setMoney(getMoney() - amount);
+        toBalance.setMoney(toBalance.getMoney() + amount);
+        return true;
     }
 
     public static void setPlayerBalance(int money, int donateMoney, String member) {
@@ -91,5 +79,24 @@ public class Balance {
                 e.printStackTrace();
             }
         }
+    }
+    public static Balance getPlayerBalance(String player) {
+        boolean has_account = false;
+        try {
+            PreparedStatement pr = Database.getConnection().prepareStatement("SELECT * FROM Players WHERE Name = ?");
+            pr.setString(1, player);
+            ResultSet rs = pr.executeQuery();
+            has_account = rs.next();
+            if(has_account) {
+                return new Balance(rs.getInt("money"), rs.getInt("donateMoney"), player);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(!has_account) {
+            setPlayerBalance(300, 0, player);
+            return new Balance(300, 0, player);
+        }
+        return new Balance(300, 0, player);
     }
 }
