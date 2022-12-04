@@ -1,5 +1,6 @@
 package me.vineer.economyapi.money;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import me.vineer.economyapi.database.Database;
 import org.bukkit.entity.Player;
 
@@ -49,16 +50,7 @@ public class Balance {
     }
 
     public static void setPlayerBalance(int money, int donateMoney, String member) {
-        boolean has_account = false;
-        try {
-            PreparedStatement pr = Database.getConnection().prepareStatement("SELECT * FROM Players WHERE Name = ?");
-            pr.setString(1, member);
-            ResultSet rs = pr.executeQuery();
-            has_account = rs.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if(has_account) {
+        if(hasBalance(member)) {
             try {
                 PreparedStatement pr = Database.getConnection().prepareStatement("UPDATE Players SET money = ?, donateMoney = ? WHERE Name = ?");
                 pr.setInt(1, money);
@@ -80,23 +72,41 @@ public class Balance {
             }
         }
     }
+
     public static Balance getPlayerBalance(String player) {
-        boolean has_account = false;
-        try {
-            PreparedStatement pr = Database.getConnection().prepareStatement("SELECT * FROM Players WHERE Name = ?");
-            pr.setString(1, player);
-            ResultSet rs = pr.executeQuery();
-            has_account = rs.next();
-            if(has_account) {
-                return new Balance(rs.getInt("money"), rs.getInt("donateMoney"), player);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if(!has_account) {
+        if(!hasBalance(player)) {
             setPlayerBalance(300, 0, player);
             return new Balance(300, 0, player);
         }
         return new Balance(300, 0, player);
+    }
+
+    public static void changePlayerBalance(String member, int money, int donateMoney) {
+        if(hasBalance(member)) {
+            try {
+                PreparedStatement pr = Database.getConnection().prepareStatement("UPDATE Players SET money = money + ?, donateMoney = donateMoney + ? WHERE Name = ?");
+                pr.setInt(1, money);
+                pr.setInt(2, donateMoney);
+                pr.setString(3, member);
+                pr.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            setPlayerBalance(300 + money, donateMoney, member);
+        }
+    }
+
+    public static boolean hasBalance(String member) {
+        boolean has_account = false;
+        try {
+            PreparedStatement pr = Database.getConnection().prepareStatement("SELECT * FROM Players WHERE Name = ?");
+            pr.setString(1, member);
+            ResultSet rs = pr.executeQuery();
+            has_account = rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return has_account;
     }
 }
