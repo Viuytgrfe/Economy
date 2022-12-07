@@ -1,0 +1,15 @@
+name: EconomyAPI
+version: '${project.version}'
+main: me.vineer.economyapi.EconomyAPI
+api-version: 1.16
+authors: [ Vineer ]
+loadbefore: [PlayerManager]
+depend:
+  - PlaceholderAPI
+commands:
+  money:
+    description: your money
+    usage: /<command>
+  withdraw:
+    description: give you check with money
+    usage: /<command>
