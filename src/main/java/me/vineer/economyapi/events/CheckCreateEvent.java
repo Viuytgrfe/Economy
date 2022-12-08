@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 public class CheckCreateEvent extends Event implements Cancellable {
     private static final HandlerList handles = new HandlerList();
 
-    Player whoUsed;
+    Player whoCreated;
     String fromPlayerName;
     ItemStack check;
     int amount;
@@ -26,7 +26,7 @@ public class CheckCreateEvent extends Event implements Cancellable {
     }
 
     public Player getWhoUsed() {
-        return whoUsed;
+        return whoCreated;
     }
 
     public String getFromPlayerName() {
@@ -57,9 +57,9 @@ public class CheckCreateEvent extends Event implements Cancellable {
     }
 
 
-    public CheckCreateEvent(Player whoUsed, String fromPlayerName, int amount, MoneyType type) {
+    public CheckCreateEvent(Player whoCreated, String fromPlayerName, int amount, MoneyType type) {
         this.amount = amount;
-        this.whoUsed = whoUsed;
+        this.whoCreated = whoCreated;
         this.fromPlayerName = fromPlayerName;
         this.type = type;
     }
