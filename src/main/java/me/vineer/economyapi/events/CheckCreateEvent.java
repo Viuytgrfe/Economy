@@ -57,11 +57,12 @@ public class CheckCreateEvent extends Event implements Cancellable {
     }
 
 
-    public CheckCreateEvent(Player whoCreated, String fromPlayerName, int amount, MoneyType type) {
+    public CheckCreateEvent(ItemStack check, Player whoCreated, String fromPlayerName, int amount, MoneyType type) {
         this.amount = amount;
         this.whoCreated = whoCreated;
         this.fromPlayerName = fromPlayerName;
         this.type = type;
+        this.check = check;
     }
 
     @NotNull

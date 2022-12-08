@@ -21,11 +21,11 @@ public class WithdrawCommand implements CommandExecutor {
         if(args[0].equals("money")) {
             int amount = Integer.parseInt(args[1]);
             if(amount <= balance.getMoney()) {
-                CheckCreateEvent event = new CheckCreateEvent(player, player.getName(), amount, MoneyType.MONEY);
+                ItemStack item = Balance.createCheck(MoneyType.MONEY, amount, player.getName());
+                CheckCreateEvent event = new CheckCreateEvent(item, player, player.getName(), amount, MoneyType.MONEY);
                 Bukkit.getServer().getPluginManager().callEvent(event);
                 if(!event.isCancelled()) {
-                    ItemStack item = Balance.createCheck(MoneyType.MONEY, amount, player.getName());
-                    if(player.getInventory().addItem(item).size() != 0) {
+                    if(player.getInventory().addItem(item).size() != 0 ) {
                         player.getWorld().dropItem(player.getLocation(), item);
                     }
                 }
@@ -33,15 +33,14 @@ public class WithdrawCommand implements CommandExecutor {
         } else if (args[0].equals("donateMoney")) {
             int amount = Integer.parseInt(args[1]);
             if(amount <= balance.getDonateMoney()) {
-                CheckCreateEvent event = new CheckCreateEvent(player, player.getName(), amount, MoneyType.DONATE_MONEY);
+                ItemStack item = Balance.createCheck(MoneyType.DONATE_MONEY, amount, player.getName());
+                CheckCreateEvent event = new CheckCreateEvent(item, player, player.getName(), amount, MoneyType.DONATE_MONEY);
                 Bukkit.getServer().getPluginManager().callEvent(event);
                 if(!event.isCancelled()) {
-                    ItemStack item = Balance.createCheck(MoneyType.DONATE_MONEY, amount, player.getName());
-                    if(player.getInventory().addItem(item).size() != 0) {
+                    if (player.getInventory().addItem(item).size() != 0) {
                         player.getWorld().dropItem(player.getLocation(), item);
                     }
                 }
-
             }
         }
         return true;

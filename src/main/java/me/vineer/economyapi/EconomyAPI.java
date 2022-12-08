@@ -25,6 +25,7 @@ public final class EconomyAPI extends JavaPlugin {
     @Override
     public void onDisable() {
         instance = null;
+        Database.disconnect();
     }
 
     public static JavaPlugin getPlugin() {

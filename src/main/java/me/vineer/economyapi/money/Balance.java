@@ -18,8 +18,8 @@ import java.util.List;
 
 public class Balance {
 
-    private static final NamespacedKey Moneykey = new NamespacedKey(EconomyAPI.getInstance(), "money");
-    private static final NamespacedKey MoneyType = new NamespacedKey(EconomyAPI.getInstance(), "type");
+    public static final NamespacedKey Moneykey = new NamespacedKey(EconomyAPI.getInstance(), "money");
+    public static final NamespacedKey MoneyType = new NamespacedKey(EconomyAPI.getInstance(), "type");
 
 
     private int money;
@@ -156,17 +156,20 @@ public class Balance {
         }
         if(amount != null) {
             meta.getPersistentDataContainer().set(Moneykey, PersistentDataType.INTEGER, amount);
-            if(type == me.vineer.economyapi.money.MoneyType.MONEY) {
+            if(meta.getPersistentDataContainer().get(MoneyType, PersistentDataType.STRING).equals(me.vineer.economyapi.money.MoneyType.MONEY.getName())) {
                 List<String> lore = meta.getLore();
                 lore.set(0, ChatColor.GREEN + "$" + ChatColor.WHITE + amount);
+                meta.setLore(lore);
             } else {
                 List<String> lore = meta.getLore();
                 lore.set(0, ChatColor.YELLOW + "℗" + ChatColor.WHITE + amount);
+                meta.setLore(lore);
             }
 
         } else if (fromPlayer != null) {
             List<String> lore = meta.getLore();
             lore.set(1, ChatColor.WHITE + "от " + fromPlayer);
+            meta.setLore(lore);
         }
         check.setItemMeta(meta);
     }
