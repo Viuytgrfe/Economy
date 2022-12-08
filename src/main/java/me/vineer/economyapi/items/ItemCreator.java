@@ -3,6 +3,7 @@ package me.vineer.economyapi.items;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -27,20 +28,25 @@ public class ItemCreator {
         return item;
     }
 
-    public static ItemStack modifyGuiItem(ItemStack item, String name, String... lore) {
+    public static ItemStack modifyGuiItem(@NotNull ItemStack item, String name, String... lore) {
         ItemMeta meta = item.getItemMeta();
 
-        meta.setDisplayName(name);
-        List<String> list = new LinkedList<String>(Arrays.asList(lore));
-        for (int i = 0; i < list.size(); i++) {
-            if(list.get(i) == null || list.get(i).equals("")) {
-                list.remove(i);
-                i--;
+        if(meta != null) {
+            if(name != null) {
+                meta.setDisplayName(name);
             }
+            List<String> list = new LinkedList<>(Arrays.asList(lore));
+            for (int i = 0; i < list.size(); i++) {
+                if(list.get(i) == null) {
+                    list.remove(i);
+                    i--;
+                } else if(list.get(i).equals("default") && meta.getLore() != null && meta.getLore().size() > i) {
+                    list.set(i, meta.getLore().get(i));
+                }
+            }
+            meta.setLore(list);
+            item.setItemMeta(meta);
         }
-        meta.setLore(list);
-        item.setItemMeta(meta);
-
         return item;
     }
 }

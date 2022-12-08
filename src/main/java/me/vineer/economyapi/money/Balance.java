@@ -9,15 +9,22 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class Balance {
+
+    private static final NamespacedKey Moneykey = new NamespacedKey(EconomyAPI.getInstance(), "money");
+    private static final NamespacedKey MoneyType = new NamespacedKey(EconomyAPI.getInstance(), "type");
+
+
     private int money;
     private int donateMoney;
-    private String member;
+    private final String member;
 
     private Balance(int money, int donateMoney, String member) {
         this.money = money;
@@ -129,8 +136,6 @@ public class Balance {
     }
     public static ItemStack createCheck(MoneyType type, int amount, String fromPlayer) {
         ItemStack item = null;
-        NamespacedKey Moneykey = new NamespacedKey(EconomyAPI.getInstance(), "money");
-        NamespacedKey MoneyType = new NamespacedKey(EconomyAPI.getInstance(), "type");
         if(type.equals(me.vineer.economyapi.money.MoneyType.MONEY)) {
             item = ItemCreator.createGuiItem(Material.PAPER, ChatColor.WHITE + "Чек", ChatColor.GREEN + "$" + ChatColor.WHITE + amount, ChatColor.WHITE + "от " + fromPlayer);
             Balance.changePlayerBalance(fromPlayer, -amount, 0);
@@ -144,5 +149,25 @@ public class Balance {
         item.setItemMeta(itemMeta);
         return item;
     }
+    public static void changeCheck(@NotNull ItemStack check, MoneyType type, Integer amount, String fromPlayer) {
+        ItemMeta meta = check.getItemMeta();
+        if(type != null) {
+            meta.getPersistentDataContainer().set(MoneyType, PersistentDataType.STRING, type.getName());
+        }
+        if(amount != null) {
+            meta.getPersistentDataContainer().set(Moneykey, PersistentDataType.INTEGER, amount);
+            if(type == me.vineer.economyapi.money.MoneyType.MONEY) {
+                List<String> lore = meta.getLore();
+                lore.set(0, ChatColor.GREEN + "$" + ChatColor.WHITE + amount);
+            } else {
+                List<String> lore = meta.getLore();
+                lore.set(0, ChatColor.YELLOW + "℗" + ChatColor.WHITE + amount);
+            }
 
+        } else if (fromPlayer != null) {
+            List<String> lore = meta.getLore();
+            lore.set(1, ChatColor.WHITE + "от " + fromPlayer);
+        }
+        check.setItemMeta(meta);
+    }
 }

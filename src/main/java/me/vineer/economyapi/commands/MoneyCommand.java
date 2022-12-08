@@ -1,6 +1,5 @@
 package me.vineer.economyapi.commands;
 
-import me.clip.placeholderapi.PlaceholderAPI;
 import me.vineer.economyapi.money.Balance;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
