@@ -28,7 +28,7 @@ public class MoneyCommand implements CommandExecutor {
             Balance.changePlayerBalance(args[3], Integer.parseInt(args[2]), 0);
         } else if (args.length == 4 && args[0].equals("add") && args[1].equals("donateMoney") && sender.isOp()) {
             Balance.changePlayerBalance(args[3], 0, Integer.parseInt(args[2]));
-        } else if(!player.isOp()) {
+        } else if(!player.isOp() || args.length == 0) {
             player.sendMessage(ChatColor.WHITE + "Твои деньги: " + Balance.getPlayerBalance(sender.getName()).getMoney());
         }
         return true;
