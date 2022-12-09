@@ -14,7 +14,7 @@ public class EconomyListener implements Listener {
     public void onUseCheck(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            if(player.getInventory().getItemInMainHand().getItemMeta().getPersistentDataContainer().get(Balance.MoneyType, PersistentDataType.STRING) != null) {
+            if(player.getInventory().getItemInMainHand().getItemMeta() != null && player.getInventory().getItemInMainHand().getItemMeta().getPersistentDataContainer().get(Balance.MoneyType, PersistentDataType.STRING) != null) {
                 String type = player.getInventory().getItemInMainHand().getItemMeta().getPersistentDataContainer().get(Balance.MoneyType, PersistentDataType.STRING);
                 int amount = player.getInventory().getItemInMainHand().getItemMeta().getPersistentDataContainer().get(Balance.Moneykey, PersistentDataType.INTEGER);
                 event.getPlayer().getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount()-1);
