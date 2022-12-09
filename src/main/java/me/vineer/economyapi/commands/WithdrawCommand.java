@@ -21,8 +21,8 @@ public class WithdrawCommand implements CommandExecutor {
         if(args[0].equals("money")) {
             int amount = Integer.parseInt(args[1]);
             if(amount <= balance.getMoney()) {
-                ItemStack item = Balance.createCheck(MoneyType.MONEY, amount, player.getName());
-                CheckCreateEvent event = new CheckCreateEvent(item, player, player.getName(), amount, MoneyType.MONEY);
+                ItemStack item = Balance.createCheck(MoneyType.MONEY, amount, player.getDisplayName());
+                CheckCreateEvent event = new CheckCreateEvent(item, player, player.getDisplayName(), amount, MoneyType.MONEY);
                 Bukkit.getServer().getPluginManager().callEvent(event);
                 if(!event.isCancelled()) {
                     if(player.getInventory().addItem(item).size() != 0 ) {
@@ -33,8 +33,8 @@ public class WithdrawCommand implements CommandExecutor {
         } else if (args[0].equals("donateMoney")) {
             int amount = Integer.parseInt(args[1]);
             if(amount <= balance.getDonateMoney()) {
-                ItemStack item = Balance.createCheck(MoneyType.DONATE_MONEY, amount, player.getName());
-                CheckCreateEvent event = new CheckCreateEvent(item, player, player.getName(), amount, MoneyType.DONATE_MONEY);
+                ItemStack item = Balance.createCheck(MoneyType.DONATE_MONEY, amount, player.getDisplayName());
+                CheckCreateEvent event = new CheckCreateEvent(item, player, player.getDisplayName(), amount, MoneyType.DONATE_MONEY);
                 Bukkit.getServer().getPluginManager().callEvent(event);
                 if(!event.isCancelled()) {
                     if (player.getInventory().addItem(item).size() != 0) {
