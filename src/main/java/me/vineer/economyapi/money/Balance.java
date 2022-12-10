@@ -134,13 +134,13 @@ public class Balance {
         }
         return has_account;
     }
-    public static ItemStack createCheck(MoneyType type, int amount, String fromPlayer) {
+    public static ItemStack createCheck(MoneyType type, int amount, String fromPlayerDisplay, String fromPlayer) {
         ItemStack item = null;
         if(type.equals(me.vineer.economyapi.money.MoneyType.MONEY)) {
-            item = ItemCreator.createGuiItem(Material.PAPER, ChatColor.WHITE + "Чек", ChatColor.GREEN + "$" + ChatColor.WHITE + amount, ChatColor.WHITE + "от " + fromPlayer);
+            item = ItemCreator.createGuiItem(Material.PAPER, ChatColor.WHITE + "Чек", ChatColor.GREEN + "$" + ChatColor.WHITE + amount, ChatColor.WHITE + "от " + fromPlayerDisplay);
             Balance.changePlayerBalance(fromPlayer, -amount, 0);
         } else if (type.equals(me.vineer.economyapi.money.MoneyType.DONATE_MONEY)) {
-            item = ItemCreator.createGuiItem(Material.PAPER, ChatColor.WHITE + "Чек", ChatColor.YELLOW + "℗" + ChatColor.WHITE + amount, ChatColor.WHITE + "от " + fromPlayer);
+            item = ItemCreator.createGuiItem(Material.PAPER, ChatColor.WHITE + "Чек", ChatColor.YELLOW + "℗" + ChatColor.WHITE + amount, ChatColor.WHITE + "от " + fromPlayerDisplay);
             Balance.changePlayerBalance(fromPlayer, 0, -amount);
         }
         ItemMeta itemMeta = item.getItemMeta();

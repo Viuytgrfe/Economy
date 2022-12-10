@@ -6,6 +6,7 @@ authors: [ Vineer ]
 loadbefore: [PlayerManager]
 depend:
   - PlaceholderAPI
+  - LuckPerms
 commands:
   money:
     description: your money

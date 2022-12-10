@@ -15,8 +15,8 @@ public class WithdrawCompleter implements TabCompleter {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         List<String> list = new ArrayList<>();
         if(args.length == 1) {
-            list.add("money");
-            list.add("donateMoney");
+            list.add("$");
+            list.add("Ⓟ");
             return list;
         } else if(args.length == 2) {
             list.add("<amount>");

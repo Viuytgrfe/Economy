@@ -24,8 +24,8 @@ public class MoneyTabCompleter implements TabCompleter {
                 complete.add("add");
                 return complete;
             } else if (args.length == 2 && (args[0].equals("get") || args[0].equals("set") || args[0].equals("remove") || args[0].equals("add"))) {
-                complete.add("money");
-                complete.add("donateMoney");
+                complete.add("$");
+                complete.add("Ⓟ");
                 return complete;
             } else if (args.length == 3 && args[0].equals("get")) {
                 Player[] players = new Player[Bukkit.getServer().getOnlinePlayers().size()];

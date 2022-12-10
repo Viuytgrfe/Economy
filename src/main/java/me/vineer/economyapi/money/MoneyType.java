@@ -13,4 +13,10 @@ public enum MoneyType {
     public String getName() {
         return name;
     }
+
+    public static MoneyType getEnum(String value) {
+        for(MoneyType v : values())
+            if(v.getName().equalsIgnoreCase(value)) return v;
+        throw new IllegalArgumentException();
+    }
 }
