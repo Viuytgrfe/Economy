@@ -18,8 +18,8 @@ import java.util.List;
 
 public class Balance {
 
-    public static final NamespacedKey Moneykey = new NamespacedKey(EconomyAPI.getInstance(), "money");
-    public static final NamespacedKey MoneyType = new NamespacedKey(EconomyAPI.getInstance(), "type");
+    public static final NamespacedKey Moneykey = new NamespacedKey(EconomyAPI.getPlugin(), "money");
+    public static final NamespacedKey MoneyType = new NamespacedKey(EconomyAPI.getPlugin(), "type");
 
 
     private int money;

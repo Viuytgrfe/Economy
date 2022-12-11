@@ -6,30 +6,25 @@ import me.vineer.economyapi.database.Database;
 import me.vineer.economyapi.listeners.EconomyListener;
 import me.vineer.economyapi.tabCompleters.MoneyTabCompleter;
 import me.vineer.economyapi.tabCompleters.WithdrawCompleter;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class EconomyAPI extends JavaPlugin {
-    private static final JavaPlugin plugin = JavaPlugin.getProvidingPlugin(EconomyAPI.class);
-    public static EconomyAPI instance;
+    public static Plugin plugin;
     @Override
     public void onEnable() {
-        instance = this;
+        plugin = this;
         Database.initDatabase();
         registerEvents();
     }
 
-    public static EconomyAPI getInstance() {
-        return instance;
+    public static Plugin getPlugin() {
+        return plugin;
     }
 
     @Override
     public void onDisable() {
-        instance = null;
         Database.disconnect();
-    }
-
-    public static JavaPlugin getPlugin() {
-        return plugin;
     }
 
 
