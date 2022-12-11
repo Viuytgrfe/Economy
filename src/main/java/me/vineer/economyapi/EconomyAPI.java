@@ -6,11 +6,10 @@ import me.vineer.economyapi.database.Database;
 import me.vineer.economyapi.listeners.EconomyListener;
 import me.vineer.economyapi.tabCompleters.MoneyTabCompleter;
 import me.vineer.economyapi.tabCompleters.WithdrawCompleter;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class EconomyAPI extends JavaPlugin {
-    public static Plugin plugin;
+    public static EconomyAPI plugin;
     @Override
     public void onEnable() {
         plugin = this;
@@ -18,7 +17,7 @@ public final class EconomyAPI extends JavaPlugin {
         registerEvents();
     }
 
-    public static Plugin getPlugin() {
+    public static EconomyAPI getPlugin() {
         return plugin;
     }
 
