@@ -9,13 +9,12 @@ import me.vineer.economyapi.tabCompleters.WithdrawCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class EconomyAPI extends JavaPlugin {
-    private static JavaPlugin plugin;
+    private static final JavaPlugin plugin = JavaPlugin.getProvidingPlugin(EconomyAPI.class);
     public static EconomyAPI instance;
     @Override
     public void onEnable() {
         instance = this;
         Database.initDatabase();
-        EconomyAPI.setPlugin(this);
         registerEvents();
     }
 
@@ -33,9 +32,6 @@ public final class EconomyAPI extends JavaPlugin {
         return plugin;
     }
 
-    private static void setPlugin(final JavaPlugin plugin) {
-        EconomyAPI.plugin = plugin;
-    }
 
     private void registerEvents() {
         new EconomyExpansion().register();
