@@ -16,7 +16,7 @@ public class CheckUseEvent extends Event implements Cancellable {
     Player whoUsed;
     String fromPlayerName;
     ItemStack check;
-    int amount;
+    double amount;
     MoneyType type;
     boolean cancelled = false;
 
@@ -37,11 +37,11 @@ public class CheckUseEvent extends Event implements Cancellable {
         Balance.changeCheck(check, null, null, fromPlayerName);
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
         Balance.changeCheck(check, null, amount, null);
     }
@@ -55,7 +55,7 @@ public class CheckUseEvent extends Event implements Cancellable {
         Balance.changeCheck(check, type, null, null);
     }
 
-    public CheckUseEvent(Player whoUsed, String fromPlayerName, int amount, MoneyType type) {
+    public CheckUseEvent(Player whoUsed, String fromPlayerName, double amount, MoneyType type) {
         this.amount = amount;
         this.whoUsed = whoUsed;
         this.fromPlayerName = fromPlayerName;

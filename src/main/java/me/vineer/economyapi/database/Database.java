@@ -41,7 +41,7 @@ public class Database {
     public static void initDatabase() {
         Database.connect();
         try {
-            PreparedStatement ps = Database.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS Players(Name VARCHAR(100), money int, donateMoney int, PRIMARY KEY (Name))");
+            PreparedStatement ps = Database.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS Players(Name VARCHAR(100), money double, donateMoney double, PRIMARY KEY (Name))");
             ps.executeUpdate();
         }
         catch (SQLException e) {

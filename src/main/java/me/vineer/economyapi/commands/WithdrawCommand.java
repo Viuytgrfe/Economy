@@ -1,5 +1,6 @@
 package me.vineer.economyapi.commands;
 
+import me.vineer.economyapi.EconomyAPI;
 import me.vineer.economyapi.events.CheckCreateEvent;
 import me.vineer.economyapi.money.Balance;
 import me.vineer.economyapi.money.MoneyType;
@@ -15,7 +16,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.BlockStateMeta;
 import org.jetbrains.annotations.NotNull;
 
 public class WithdrawCommand implements CommandExecutor {
@@ -25,8 +25,7 @@ public class WithdrawCommand implements CommandExecutor {
         if(args.length != 2)return true;
         Player player = (Player) sender;
         Balance balance = Balance.getPlayerBalance(player.getName());
-        LuckPerms luckPerms = LuckPermsProvider.get();
-        User user = luckPerms.getPlayerAdapter(Player.class).getUser(player);
+        User user = EconomyAPI.luckPerms.getPlayerAdapter(Player.class).getUser(player);
         String prefix = user.getCachedData().getMetaData().getPrefix();
         String suffix = user.getCachedData().getMetaData().getSuffix();
         if(prefix == null)prefix = "";
